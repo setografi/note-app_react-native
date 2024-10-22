@@ -1,14 +1,13 @@
 // NoteItem.tsx
 import React from "react";
-import { TouchableOpacity } from "react-native";
-import { ThemedView } from "@/components/ThemedView";
-import { ThemedText } from "@/components/ThemedText";
+import { View, Text, TouchableOpacity } from "react-native";
 import { styles } from "@/assets/styles/styles";
 
 type NoteProps = {
   note: {
     id: number | string;
     title: string;
+    body: string;
     createdAt: string;
     archived: boolean;
     bookmarked: boolean;
@@ -19,12 +18,12 @@ type NoteProps = {
 export default function NoteItem({ note, onSelect }: NoteProps) {
   return (
     <TouchableOpacity onPress={() => onSelect(note)}>
-      <ThemedView style={styles.noteItem}>
-        <ThemedText style={styles.titleText}>{note.title}</ThemedText>
-        <ThemedText>{`Created At: ${new Date(
+      <View style={styles.noteItem}>
+        <Text style={styles.titleText}>{note.title}</Text>
+        <Text>{`Created At: ${new Date(
           note.createdAt
-        ).toLocaleDateString()}`}</ThemedText>
-      </ThemedView>
+        ).toLocaleDateString()}`}</Text>
+      </View>
     </TouchableOpacity>
   );
 }

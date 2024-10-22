@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import {
-  Image,
+  Text,
+  View,
+  ScrollView,
+  ImageBackground,
   TextInput,
   FlatList,
   Alert,
@@ -8,13 +11,13 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { HelloWave } from "@/components/HelloWave";
-import ParallaxScrollView from "@/components/ParallaxScrollView";
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
-import NoteItem from "@/components/NoteItem";
+import AntDesign from "@expo/vector-icons/AntDesign";
+// import backgroundApp from "@/assets/images/backgroundApp.png";
+const backgroundApp = require("@/assets/images/backgroundApp.png");
+
+import NoteList from "@/components/NoteList";
 import { AddNoteModal } from "@/components/AddNoteModal";
-import { ViewNote } from "@/components/ViewNote"; // Impor ViewNote
+import { ViewNote } from "@/components/ViewNote";
 import { styles } from "@/assets/styles/styles";
 
 type Note = {
@@ -29,7 +32,7 @@ type Note = {
 
 const STORAGE_KEY = "@notes";
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen() {
   const [notes, setNotes] = useState<Note[]>([]);
   const [search, setSearch] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
@@ -44,7 +47,7 @@ export default function HomeScreen({ navigation }) {
       const jsonNotes = await AsyncStorage.getItem(STORAGE_KEY);
       if (jsonNotes) {
         const allNotes = JSON.parse(jsonNotes);
-        setNotes(allNotes.filter((note) => !note.archived));
+        setNotes(allNotes.filter((note: Note) => !note.archived));
       }
     } catch (error) {
       console.error("Failed to load notes", error);
@@ -93,32 +96,31 @@ export default function HomeScreen({ navigation }) {
   };
 
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
-      headerImage={
-        <Image
-          source={require("@/assets/images/TodoImg.jpg")}
-          style={styles.todoBg}
-        />
-      }
-    >
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
+    <ScrollView style={styles.container}>
+      <View style={styles.header}>
+        <View>
+          <Text style={styles.headerText}>Hallo,</Text>
+          <Text style={{ fontWeight: "bold", fontSize: 12 }}>Your Name</Text>
+        </View>
 
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Todolist App</ThemedText>
+        <AntDesign name="user" size={24} color="black" />
+      </View>
 
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Search Notes"
-          value={search}
-          onChangeText={setSearch}
-        />
-      </ThemedView>
+      <ImageBackground source={backgroundApp} style={styles.backgroundImage}>
+        <View style={styles.searchSection}>
+          <Text style={{ fontSize: 15, fontWeight: "semibold" }}>Note App</Text>
 
-      <FlatList
+          <TextInput
+            style={styles.searchInput}
+            placeholder="Search Notes"
+            value={search}
+            onChangeText={setSearch}
+          />
+        </View>
+      </ImageBackground>
+
+      {/* <FlatList
+        style={styles.noteSection}
         data={filteredNotes}
         renderItem={({ item }) => (
           <NoteItem
@@ -128,14 +130,13 @@ export default function HomeScreen({ navigation }) {
         )}
         keyExtractor={(item) => item.id.toString()}
       />
-      {filteredNotes.length === 0 && <ThemedText>Tidak ada catatan</ThemedText>}
+      {filteredNotes.length === 0 && <Text>Tidak ada catatan</Text>} */}
 
-      <TouchableOpacity
-        style={styles.addButton}
-        onPress={() => setModalVisible(true)}
-      >
-        <ThemedText style={styles.addButtonText}>+</ThemedText>
-      </TouchableOpacity>
+      <NoteList
+        filteredNotes={filteredNotes}
+        handleSelectNote={handleSelectNote}
+        setModalVisible={setModalVisible}
+      />
 
       <AddNoteModal
         visible={modalVisible}
@@ -154,6 +155,6 @@ export default function HomeScreen({ navigation }) {
           onBookmark={toggleBookmark}
         />
       )}
-    </ParallaxScrollView>
+    </ScrollView>
   );
 }

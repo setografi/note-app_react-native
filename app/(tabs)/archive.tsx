@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Image, FlatList } from "react-native";
+import { View, Text, ScrollView, FlatList } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import ParallaxScrollView from "@/components/ParallaxScrollView";
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
 import NoteItem from "@/components/NoteItem";
 import { styles } from "@/assets/styles/styles";
 
@@ -56,18 +53,18 @@ export default function ArchiveScreen() {
   };
 
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: "#D0D0D0", dark: "#353636" }}
-      headerImage={
-        <Image
-          source={require("@/assets/images/TodoImg.jpg")}
-          style={styles.todoBg}
-        />
-      }
+    <ScrollView
+    // headerBackgroundColor={{ light: "#D0D0D0", dark: "#353636" }}
+    // headerImage={
+    //   <Image
+    //     source={require("@/assets/images/TodoImg.jpg")}
+    //     style={styles.todoBg}
+    //   />
+    // }
     >
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Archived Notes</ThemedText>
-      </ThemedView>
+      <View style={styles.titleContainer}>
+        <Text style={styles.titleText}>Archived Notes</Text>
+      </View>
 
       <FlatList
         data={archivedNotes}
@@ -81,6 +78,6 @@ export default function ArchiveScreen() {
         )}
         keyExtractor={(item) => item.id.toString()}
       />
-    </ParallaxScrollView>
+    </ScrollView>
   );
 }

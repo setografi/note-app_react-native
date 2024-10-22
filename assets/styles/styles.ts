@@ -2,23 +2,58 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 16,
-    // backgroundColor: "#f5f5f5",
+    paddingHorizontal: 30,
+    paddingVertical: 40,
+    backgroundColor: "#FFFFFF",
   },
+
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 10,
+    marginBottom: 28,
   },
-  input: {
+  headerText: {
+    fontSize: 12,
+    fontWeight: "400",
+  },
+
+  backgroundImage: {
+    height: 180,
+    flex: 1,
+    // justifyContent: "center",
+    // alignItems: "flex-start",
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: "#D8D8D8",
+    overflow: "hidden",
+  },
+  searchSection: {
+    overflow: "hidden",
+    padding: 30,
+  },
+  searchInput: {
     height: 40,
-    borderColor: "#ccc",
+    backgroundColor: "#FFFFFF",
+    borderColor: "#D8D8D8",
     borderWidth: 1,
     paddingHorizontal: 10,
-    marginBottom: 10,
-    borderRadius: 5,
+    marginTop: 54,
+    borderRadius: 15,
   },
+
+  noteSection: {
+    marginTop: 36,
+  },
+
+  // input: {
+  //   height: 40,
+  //   borderColor: "#ccc",
+  //   borderWidth: 1,
+  //   paddingHorizontal: 10,
+  //   marginBottom: 10,
+  //   borderRadius: 5,
+  // },
+
   noteItem: {
     padding: 10,
     marginVertical: 5,
@@ -36,14 +71,7 @@ export const styles = StyleSheet.create({
   button: {
     marginVertical: 10,
   },
-  searchInput: {
-    height: 40,
-    borderColor: "#ccc",
-    borderWidth: 1,
-    paddingHorizontal: 10,
-    marginBottom: 10,
-    borderRadius: 5,
-  },
+
   charLimitText: {
     marginTop: 5,
     color: "gray",

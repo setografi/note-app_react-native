@@ -19,8 +19,11 @@ export default function NoteItem({ note, onSelect }: NoteProps) {
   return (
     <TouchableOpacity onPress={() => onSelect(note)}>
       <View style={styles.noteItem}>
-        <Text style={styles.titleText}>{note.title}</Text>
-        <Text>{`Created At: ${new Date(
+        <Text style={styles.titleNote}>{note.title}</Text>
+        {/* <Text>{`Created At: ${new Date(
+          note.createdAt
+        ).toLocaleDateString()}`}</Text> */}
+        <Text style={styles.dateText}>{`${new Date(
           note.createdAt
         ).toLocaleDateString()}`}</Text>
       </View>

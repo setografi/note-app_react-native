@@ -1,6 +1,8 @@
 import React from "react";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
-import NoteItem from "@/components/NoteItem"; // Pastikan untuk mengimpor NoteItem
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+
+import NoteItem from "@/components/NoteItem";
 import { styles } from "@/assets/styles/styles";
 
 type Note = {
@@ -25,7 +27,15 @@ const NoteList: React.FC<NoteListProps> = ({
   setModalVisible,
 }) => {
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.noteListsection}>
+      <TouchableOpacity
+        style={styles.addButton}
+        onPress={() => setModalVisible(true)}
+      >
+        <FontAwesome6 name="add" size={15} color="#202020" />
+        <Text style={styles.addButtonText}>New Note</Text>
+      </TouchableOpacity>
+
       <FlatList
         data={filteredNotes}
         renderItem={({ item }) => (
@@ -33,14 +43,7 @@ const NoteList: React.FC<NoteListProps> = ({
         )}
         keyExtractor={(item) => item.id.toString()}
         ListEmptyComponent={<Text>Tidak ada catatan</Text>}
-        contentContainerStyle={{ paddingBottom: 200 }} // Sesuaikan padding bawah jika diperlukan
       />
-      <TouchableOpacity
-        style={styles.addButton}
-        onPress={() => setModalVisible(true)}
-      >
-        <Text style={styles.addButtonText}>+</Text>
-      </TouchableOpacity>
     </View>
   );
 };

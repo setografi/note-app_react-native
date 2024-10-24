@@ -44,13 +44,13 @@ export const ViewNote: React.FC<ViewNoteProps> = ({
             onClose();
           }}
         />
-        <Button
+        {/* <Button
           title={note.bookmarked ? "Unbookmark" : "Bookmark"}
           onPress={() => {
             onBookmark(note.id);
             onClose();
           }}
-        />
+        /> */}
         <Button title="Close" onPress={onClose} />
       </View>
     </Modal>

@@ -5,9 +5,6 @@ import {
   ScrollView,
   ImageBackground,
   TextInput,
-  FlatList,
-  Alert,
-  TouchableOpacity,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -15,6 +12,7 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 // import backgroundApp from "@/assets/images/backgroundApp.png";
 const backgroundApp = require("@/assets/images/backgroundApp.png");
 
+import DateNote from "@/components/DateNote";
 import NoteList from "@/components/NoteList";
 import { AddNoteModal } from "@/components/AddNoteModal";
 import { ViewNote } from "@/components/ViewNote";
@@ -37,6 +35,7 @@ export default function HomeScreen() {
   const [search, setSearch] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedNote, setSelectedNote] = useState<Note | null>(null); // State untuk menyimpan catatan yang dipilih
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   useEffect(() => {
     loadNotes();
@@ -87,12 +86,31 @@ export default function HomeScreen() {
     saveNotes(updatedNotes);
   };
 
-  const filteredNotes = notes.filter((note) =>
-    note.title.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredNotes = notes
+    .filter((note) => note.title.toLowerCase().includes(search.toLowerCase()))
+    .filter((note) => {
+      if (!selectedDate) return true; // Jika selectedDate null, tampilkan semua catatan
+      const noteDate = new Date(note.createdAt);
+      return (
+        noteDate.getDate() === selectedDate.getDate() &&
+        noteDate.getMonth() === selectedDate.getMonth() &&
+        noteDate.getFullYear() === selectedDate.getFullYear()
+      );
+    });
 
   const handleSelectNote = (note: Note) => {
     setSelectedNote(note); // Simpan catatan yang dipilih
+  };
+
+  const filterNotesByDate = (date: Date) => {
+    return notes.filter((note) => {
+      const noteDate = new Date(note.createdAt);
+      return (
+        noteDate.getDate() === date.getDate() &&
+        noteDate.getMonth() === date.getMonth() &&
+        noteDate.getFullYear() === date.getFullYear()
+      );
+    });
   };
 
   return (
@@ -100,7 +118,9 @@ export default function HomeScreen() {
       <View style={styles.header}>
         <View>
           <Text style={styles.headerText}>Hallo,</Text>
-          <Text style={{ fontWeight: "bold", fontSize: 12 }}>Your Name</Text>
+          <Text style={{ fontWeight: "bold", fontSize: 15, color: "#1B1B1C" }}>
+            Your Name
+          </Text>
         </View>
 
         <AntDesign name="user" size={24} color="black" />
@@ -108,7 +128,11 @@ export default function HomeScreen() {
 
       <ImageBackground source={backgroundApp} style={styles.backgroundImage}>
         <View style={styles.searchSection}>
-          <Text style={{ fontSize: 15, fontWeight: "semibold" }}>Note App</Text>
+          <Text
+            style={{ fontSize: 15, fontWeight: "semibold", color: "#212124" }}
+          >
+            Note App
+          </Text>
 
           <TextInput
             style={styles.searchInput}
@@ -119,18 +143,12 @@ export default function HomeScreen() {
         </View>
       </ImageBackground>
 
-      {/* <FlatList
-        style={styles.noteSection}
-        data={filteredNotes}
-        renderItem={({ item }) => (
-          <NoteItem
-            note={item}
-            onSelect={handleSelectNote} // Tambahkan fungsi onSelect
-          />
-        )}
-        keyExtractor={(item) => item.id.toString()}
+      <DateNote
+        noteDate={selectedDate ? selectedDate.toISOString() : undefined}
+        onDateSelect={(date) => {
+          setSelectedDate(date);
+        }}
       />
-      {filteredNotes.length === 0 && <Text>Tidak ada catatan</Text>} */}
 
       <NoteList
         filteredNotes={filteredNotes}
@@ -143,7 +161,6 @@ export default function HomeScreen() {
         onClose={() => setModalVisible(false)}
         onNoteAdded={loadNotes}
       />
-
       {/* Modal untuk menampilkan detail catatan */}
       {selectedNote && (
         <ViewNote

@@ -42,21 +42,6 @@ export const styles = StyleSheet.create({
     borderRadius: 12,
   },
 
-  //Add Note Section
-  modalContainer: {
-    flex: 1,
-    justifyContent: "center",
-    padding: 20,
-    backgroundColor: "white",
-  },
-  input: {
-    height: 40,
-    borderColor: "gray",
-    borderWidth: 1,
-    marginBottom: 20,
-    paddingHorizontal: 10,
-  },
-
   //Date Section
   currentDateText: {
     fontSize: 15,
@@ -121,7 +106,7 @@ export const styles = StyleSheet.create({
   //Note List Section
   noteListsection: {
     flex: 1,
-    marginTop: 24,
+    marginTop: 22,
     marginBottom: 50,
   },
   // flexNote: {
@@ -153,25 +138,46 @@ export const styles = StyleSheet.create({
     marginVertical: 10,
   },
 
-  charLimitText: {
-    marginTop: 5,
-    color: "gray",
+  //Add Note Section
+  addContainer: {
+    flex: 1,
+    height: "100%",
+    paddingHorizontal: 30,
+    paddingTop: 10,
+    paddingBottom: 50,
+    backgroundColor: "#FFFFFF",
+    borderColor: "none",
   },
-  titleContainer: {
+  addInput: {
+    fontSize: 15,
+    color: "#000",
+    padding: 10,
+  },
+  flexAdd: {
+    display: "flex",
     flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
-    gap: 8,
-    marginBottom: 16, // Tambahkan margin untuk jarak
-  },
-  stepContainer: {
-    gap: 8,
     marginBottom: 16,
   },
-
-  todoBg: {
-    height: 250, // Sesuaikan tinggi dengan header
-    width: "100%", // Gunakan lebar penuh
-  },
+  // charLimitText: {
+  //   marginTop: 5,
+  //   color: "gray",
+  // },
+  // titleContainer: {
+  //   flexDirection: "row",
+  //   alignItems: "center",
+  //   gap: 8,
+  //   marginBottom: 16,
+  // },
+  // stepContainer: {
+  //   gap: 8,
+  //   marginBottom: 16,
+  // },
+  // todoBg: {
+  //   height: 250,
+  //   width: "100%",
+  // },
 
   deleteButton: {
     backgroundColor: "red",

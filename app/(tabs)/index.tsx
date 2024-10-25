@@ -161,6 +161,7 @@ export default function HomeScreen() {
         onClose={() => setModalVisible(false)}
         onNoteAdded={loadNotes}
       />
+
       {/* Modal untuk menampilkan detail catatan */}
       {selectedNote && (
         <ViewNote

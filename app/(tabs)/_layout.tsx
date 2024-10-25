@@ -33,7 +33,9 @@ export default function TabLayout() {
           title: "Archive",
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
-              name={focused ? "code-slash" : "code-slash-outline"}
+              name={
+                focused ? "information-circle" : "information-circle-outline"
+              }
               color={color}
             />
           ),

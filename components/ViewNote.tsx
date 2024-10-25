@@ -1,6 +1,7 @@
 import React from "react";
 import { Modal, View, Text, Button, StyleSheet } from "react-native";
-import { Note } from "@/constants/Note"; // Sesuaikan dengan lokasi tipe Note kamu
+import { Note } from "@/constants/Note";
+// import { styles } from "@/assets/styles/styles";
 
 interface ViewNoteProps {
   visible: boolean;

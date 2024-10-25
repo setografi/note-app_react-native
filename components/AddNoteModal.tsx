@@ -5,9 +5,11 @@ import {
   TextInput,
   Button,
   Alert,
-  StyleSheet,
+  TouchableOpacity,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Ionicons from "@expo/vector-icons/Ionicons";
+
 import { styles } from "@/assets/styles/styles";
 
 const STORAGE_KEY = "@notes";
@@ -63,22 +65,67 @@ export const AddNoteModal: React.FC<AddNoteModalProps> = ({
       visible={visible}
       onRequestClose={onClose}
     >
-      <View style={styles.modalContainer}>
+      <View style={styles.addContainer}>
+        <View style={styles.flexAdd}>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              gap: 10,
+              alignItems: "center",
+            }}
+          >
+            <TouchableOpacity onPress={onClose}>
+              <Ionicons name="arrow-back-outline" size={24} color="#202020" />
+            </TouchableOpacity>
+
+            <TextInput
+              placeholder="Title"
+              placeholderTextColor="#B3B3B3"
+              value={title}
+              onChangeText={setTitle}
+              style={styles.addInput}
+            />
+          </View>
+
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              gap: 24,
+              alignItems: "center",
+            }}
+          >
+            <TouchableOpacity>
+              <Ionicons name="reader-outline" size={24} color="black" />
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={addNote}>
+              <Ionicons name="checkmark-outline" size={24} color="#202020" />
+            </TouchableOpacity>
+          </View>
+        </View>
+
         <TextInput
-          placeholder="Title"
-          value={title}
-          onChangeText={setTitle}
-          style={styles.input}
-        />
-        <TextInput
-          placeholder="Body"
+          placeholder="Type something"
+          placeholderTextColor="#B3B3B3"
           value={body}
+          numberOfLines={10}
+          multiline={true}
           onChangeText={setBody}
-          style={styles.input}
+          style={[
+            styles.addInput,
+            {
+              flex: 1,
+              textAlignVertical: "top",
+              height: "100%",
+            },
+          ]}
         />
-        <Button title="Add Note" onPress={addNote} />
-        <Button title="Cancel" onPress={onClose} color="red" />
       </View>
+
+      {/* <Button title="Cancel" onPress={onClose} color="red" /> */}
+      {/* <Button title="Add Note" onPress={addNote} /> */}
     </Modal>
   );
 };

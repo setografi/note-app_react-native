@@ -1,6 +1,6 @@
 import React from "react";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 import NoteItem from "@/components/NoteItem";
 import { styles } from "@/assets/styles/styles";
@@ -32,7 +32,7 @@ const NoteList: React.FC<NoteListProps> = ({
         style={styles.addButton}
         onPress={() => setModalVisible(true)}
       >
-        <FontAwesome6 name="add" size={15} color="#202020" />
+        <Ionicons name="add" size={15} color="#202020" />
         <Text style={styles.addButtonText}>New Note</Text>
       </TouchableOpacity>
 
